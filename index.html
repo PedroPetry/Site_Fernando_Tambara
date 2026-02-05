@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fernando Tambara | Consultoria & Ferramentas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- Icones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Leitor de Planilha (CSV) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <link rel="icon" type="image/png" href="/assets/faviconsf.png">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 400: '#d4af37', 500: '#c5a028', 600: '#b08d20' },
+                        dark: { 900: '#1a1a1a', 800: '#262626' }
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        .hero-pattern {
+            background-color: #1a1a1a;
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .page-section { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Loader */
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #c5a028; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Header Fixo -->
+    <header class="py-6 border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
+            <div class="font-serif font-bold text-xl tracking-tight text-dark-900 cursor-pointer" onclick="router('home')">
+                Fernando Tambara<span class="text-gold-500">.</span>
+            </div>
+            <nav class="flex gap-6 items-center">
+                <a href="#" onclick="router('home')" class="text-sm font-semibold uppercase tracking-wide hover:text-gold-500 transition-colors hidden md:block">Consultoria</a>
+                <a href="#" onclick="router('store')" class="text-sm font-semibold uppercase tracking-wide hover:text-gold-500 transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-box-open text-gold-500"></i> Ferramentas
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=5554999147813&text=Oi,%20gostaria%20de%20conhecer%20mais%20sobre%20a%20sua%20Mentoria" class="bg-dark-900 text-white px-4 py-2 rounded text-xs font-bold uppercase tracking-widest hover:bg-gold-500 hover:text-black transition-colors">Fale Comigo</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PÁGINA 1: CONSULTORIA (HOME) -->
+    <main id="home-page" class="page-section active flex-grow">
+        <!-- Hero Section -->
+        <section class="pt-12 pb-12 px-6 hero-pattern text-white text-center">
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-8 flex justify-center">
+                    <div class="w-40 h-40 rounded-full border-4 border-gold-500 p-1 overflow-hidden bg-gray-800 relative group shadow-2xl">
+                        <!-- Imagem do Fernando -->
+                        <img src="/assets/Foto_Fernando.png" alt="Foto de Fernando Tambara" class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-500">
+                    </div>
+                </div>
+                <span class="inline-block py-1 px-3 border border-gray-700 rounded-full text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">Consultoria de Gestão</span>
+                <h1 class="font-serif text-4xl md:text-5xl font-medium leading-tight mb-6">
+                    Você já tem um <span class="italic text-gold-400">bom negócio</span>.<br>Mas sabe que ele poderia entregar muito mais.
+                </h1>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    Minha consultoria foi criada para empresários que querem sair do modo sobrevivência e entrar no <strong>modo escala</strong> — estruturando finanças, equipe e estratégia para crescer com previsibilidade.
+                </p>
+                <div class="mt-10">
+                    <a href="https://api.whatsapp.com/send?phone=5554999147813&text=Oi,%20gostaria%20de%20conhecer%20mais%20sobre%20a%20sua%20Mentoria" class="inline-flex items-center gap-3 bg-gold-500 hover:bg-gold-600 text-black font-bold py-4 px-8 rounded-sm shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] transition-all transform hover:-translate-y-1">
+                        QUERO ISSO! <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Qualificação -->
+        <section class="py-16 px-6 bg-white">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="font-serif text-3xl text-dark-900 mb-10 text-center">Essa consultoria é pra você que:</h2>
+                <div class="grid gap-6">
+                    <div class="flex gap-4 items-start p-4 hover:bg-gray-50 rounded-lg transition-colors border-l-4 border-transparent hover:border-gold-400">
+                        <div class="flex-shrink-0 mt-1 text-gold-500"><i class="fa-solid fa-check-circle text-xl"></i></div>
+                        <p class="text-lg text-gray-700"><strong>Já tem um negócio consolidado</strong>, mas sente que o crescimento estagnou.</p>
+                    </div>
+                    <div class="flex gap-4 items-start p-4 hover:bg-gray-50 rounded-lg transition-colors border-l-4 border-transparent hover:border-gold-400">
+                        <div class="flex-shrink-0 mt-1 text-gold-500"><i class="fa-solid fa-check-circle text-xl"></i></div>
+                        <p class="text-lg text-gray-700"><strong>Fatura bem, mas o lucro não acompanha.</strong> As vendas acontecem, mas o dinheiro não sobra.</p>
+                    </div>
+                    <div class="flex gap-4 items-start p-4 hover:bg-gray-50 rounded-lg transition-colors border-l-4 border-transparent hover:border-gold-400">
+                        <div class="flex-shrink-0 mt-1 text-gold-500"><i class="fa-solid fa-check-circle text-xl"></i></div>
+                        <p class="text-lg text-gray-700"><strong>Depende demais de você para tudo funcionar.</strong> Está cansado de apagar incêndios.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Agitação: A Dor -->
+        <section class="py-16 px-6 bg-gray-50 border-y border-gray-200">
+            <div class="max-w-3xl mx-auto text-center">
+                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">A Realidade Atual</h3>
+                <p class="text-2xl font-serif text-dark-900 leading-normal mb-8">
+                    Você já provou que sabe vender.<br>Agora é hora de provar que sabe <span class="bg-gold-400/20 px-1 text-dark-900">crescer com inteligência</span>.
+                </p>
+                <div class="text-left bg-white p-8 rounded shadow-sm border border-gray-100">
+                    <p class="text-gray-600 mb-4 leading-relaxed">Você tem resultado, mas ele vem com um custo alto: <strong>estresse, falta de tempo e uma equipe dependente.</strong></p>
+                    <p class="font-bold text-dark-900 text-lg mt-6">E é exatamente aí que a Fernando Tambara Consultoria atua.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solução -->
+        <section class="py-20 px-6 bg-dark-900 text-white">
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-12">
+                    <h2 class="font-serif text-3xl md:text-4xl mb-4">Gestão que gera resultado,<br>não mais trabalho.</h2>
+                </div>
+                <div class="space-y-8">
+                    <div class="flex flex-col md:flex-row gap-6 border-b border-gray-800 pb-8">
+                        <div class="w-12 h-12 bg-gold-500 rounded flex items-center justify-center text-black font-bold text-xl flex-shrink-0">1</div>
+                        <div><h3 class="text-xl font-bold text-gold-400 mb-2">Gestão Financeira Estratégica</h3><p class="text-gray-400">Enxergar o lucro real e projetar crescimento.</p></div>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-6 border-b border-gray-800 pb-8">
+                        <div class="w-12 h-12 bg-gold-500 rounded flex items-center justify-center text-black font-bold text-xl flex-shrink-0">2</div>
+                        <div><h3 class="text-xl font-bold text-gold-400 mb-2">Planejamento Comercial</h3><p class="text-gray-400">Metas claras e indicadores que movimentam o caixa.</p></div>
+                    </div>
+                     <div class="flex flex-col md:flex-row gap-6">
+                        <div class="w-12 h-12 bg-gold-500 rounded flex items-center justify-center text-black font-bold text-xl flex-shrink-0">3</div>
+                        <div><h3 class="text-xl font-bold text-gold-400 mb-2">Gestão de Equipe e Rotina</h3><p class="text-gray-400">Transformar o time em parte do crescimento.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diferenciais e Resultados -->
+        <section class="py-16 px-6 bg-white">
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-16">
+                    <h3 class="font-bold text-xl mb-6 flex items-center gap-2"><i class="fa-regular fa-lightbulb text-gold-500"></i> Meus Diferenciais</h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex gap-3"><span class="text-gold-500 font-bold">—</span> Consultoria prática e estratégica: entro no jogo, não fico na teoria.</li>
+                        <li class="flex gap-3"><span class="text-gold-500 font-bold">—</span> Visão de lucro e escala, não apenas "vender mais".</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xl mb-6 flex items-center gap-2"><i class="fa-regular fa-comments text-gold-500"></i> Resultados Reais</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 p-4 rounded border border-gray-100">
+                            <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Loja de Calçados</div>
+                            <div class="font-bold text-dark-900 mb-2">R$ 80 mil/mês</div>
+                            <p class="text-sm text-green-700 font-semibold">+40% Lucro</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded border border-gray-100">
+                            <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Restaurante</div>
+                            <div class="font-bold text-dark-900 mb-2">R$ 120 mil/mês</div>
+                            <p class="text-sm text-green-700 font-semibold">2x Lucro</p>
+                        </div>
+                         <div class="bg-gray-50 p-4 rounded border border-gray-100">
+                            <div class="text-xs text-gray-500 uppercase tracking-wide mb-1">Serviços</div>
+                            <div class="font-bold text-dark-900 mb-2">R$ 60 mil/mês</div>
+                            <p class="text-sm text-green-700 font-semibold">Expansão</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="py-20 px-6 bg-gold-500 text-dark-900 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold mb-6">O próximo passo</h2>
+                <p class="text-lg font-medium mb-8">E se em 90 dias você tivesse metas batendo e lucro sobrando?</p>
+                <a href="https://api.whatsapp.com/send?phone=5554999147813&text=Oi,%20gostaria%20de%20conhecer%20mais%20sobre%20a%20sua%20Mentoria" class="block w-full bg-dark-900 hover:bg-black text-white font-bold text-xl py-5 px-6 rounded shadow-2xl transition-all transform hover:scale-[1.02]">
+                    <i class="fa-brands fa-whatsapp mr-2"></i> CLIQUE AQUI E FALE COMIGO
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- PÁGINA 2: LOJA DE FERRAMENTAS -->
+    <main id="store-page" class="page-section hidden flex-grow bg-gray-50">
+        <section class="py-16 px-6 bg-dark-900 text-white text-center">
+            <h1 class="font-serif text-4xl font-bold mb-4">Ferramentas & Recursos</h1>
+            <p class="text-gray-400 max-w-xl mx-auto">Acelere seus resultados com as mesmas ferramentas que utilizo nos meus projetos.</p>
+        </section>
+        <section class="py-16 px-6 max-w-5xl mx-auto">
+            <div id="loading-indicator" class="hidden text-center">
+                <div class="loader"></div>
+                <p class="text-gray-500">Carregando ferramentas...</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8" id="product-grid">
+                <!-- Produtos via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- PÁGINA 3: DETALHE DO PRODUTO -->
+    <main id="product-detail-page" class="page-section hidden flex-grow bg-white">
+        <section class="bg-gray-50 border-b border-gray-200">
+            <div class="max-w-5xl mx-auto py-12 px-6">
+                <button onclick="router('store')" class="text-xs font-bold text-gray-400 hover:text-gold-500 mb-8 uppercase tracking-widest flex items-center gap-2 transition-colors">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar para Ferramentas
+                </button>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-gold-400 to-gold-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                        <div class="relative bg-white p-4 rounded-lg shadow-2xl border border-gray-100">
+                            <img id="detail-image" src="https://via.placeholder.com/600x400" alt="Preview do Produto" class="w-full h-auto rounded shadow-sm">
+                        </div>
+                    </div>
+    
+                    <div>
+                        <span class="inline-block py-1 px-3 bg-gold-500/10 text-gold-600 rounded-full text-xs font-bold uppercase tracking-tighter mb-4">Acesso Imediato</span>
+                        <h1 class="font-serif text-4xl md:text-5xl font-bold text-dark-900 mb-6 leading-tight" id="detail-title">...</h1>
+                        <div class="flex items-baseline gap-3 mb-6">
+                            <span class="text-3xl font-extrabold text-green-700" id="detail-price">...</span>
+                            <span class="text-sm text-gray-400 line-through">R$ 297,00</span>
+                        </div>
+                        <p class="text-gray-600 text-lg mb-8 leading-relaxed" id="detail-description">...</p>
+                        
+                        <a href="#" id="detail-button" target="_blank" class="block w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold text-xl py-5 px-6 rounded shadow-[0_10px_20px_-10px_rgba(22,163,74,0.5)] transition-all transform hover:-translate-y-1">
+                            QUERO ACESSO AGORA <i class="fa-solid fa-rocket ml-2"></i>
+                        </a>
+                        <div class="flex items-center justify-center gap-4 mt-4 text-[10px] text-gray-400 uppercase font-bold tracking-widest">
+                            <span><i class="fa-solid fa-shield-halved text-green-500"></i> Compra Segura</span>
+                            <span><i class="fa-solid fa-check text-green-500"></i> 7 Dias de Garantia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <section class="py-20 px-6 max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-3xl text-dark-900 mb-4">O que você vai receber:</h2>
+                <div class="w-20 h-1 bg-gold-500 mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8" id="detail-features-grid">
+                </div>
+        </section>
+    
+        <section class="py-16 px-6 bg-dark-900 text-white">
+            <div class="max-w-3xl mx-auto text-center">
+                <i class="fa-solid fa-quote-left text-4xl text-gold-500 mb-6"></i>
+                <p class="text-xl italic font-light mb-8 text-gray-300">"Essas ferramentas foram validadas no campo de batalha, em consultorias reais que geraram milhares de reais em lucro. Não é apenas um arquivo, é um método."</p>
+                <div class="font-serif text-lg text-gold-400">Fernando Tambara</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Geral -->
+    <footer class="bg-dark-900 text-gray-500 py-8 text-center text-sm border-t border-gray-800 mt-auto">
+        <div class="max-w-3xl mx-auto px-6">
+            <p class="mb-2">&copy; 2024 Fernando Tambara Consultoria.</p>
+            <p class="text-xs opacity-60 hover:opacity-100 transition-opacity cursor-default">Desenvolvido por <a href="https://zynis-hub.vercel.app/" target="_blank" rel="noopener noreferrer"><strong class="text-gold-500">Zynis Hub</strong></p></a>
+        </div>
+    </footer>
+
+    <script>
+        // --- CONFIGURAÇÃO DA PLANILHA ---
+        // Se este link estiver vazio ou errado, o site usa os DADOS DEMO abaixo.
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsa_f85pFXa7EUXbrASqGQlwFP52fXIIsnZ_w8BeQ5FSymwbtM7bPs5FIm8abt--1VmFK7RK4C-wJN/pub?output=csv'; 
+        
+        // --- DADOS DEMO (Fallback para quando não tiver planilha conectada) ---
+        const demoProducts = [
+            {
+                Nome: "Planilha de Precificação (Exemplo)",
+                Preco: "R$ 97,00",
+                DescricaoCurta: "Planilha automática para calcular custos e lucro real.",
+                DescricaoLonga: "Esta é uma ferramenta de exemplo. Quando conectar sua planilha, este texto será substituído pelo seu produto real. A planilha calcula margem de contribuição e ponto de equilíbrio.",
+                Tipo: "planilha",
+                Beneficios: "Cálculo Automático | Vídeo Aula | Suporte",
+                LinkCheckout: "#"
+            },
+            {
+                Nome: "Manual de Contratação (Exemplo)",
+                Preco: "R$ 147,00",
+                DescricaoCurta: "Templates prontos para contratar a equipe ideal.",
+                DescricaoLonga: "Este produto de exemplo mostra como ficará sua página de vendas. Ideal para quem quer estruturar o RH.",
+                Tipo: "doc",
+                Beneficios: "Modelos em Word | Roteiro de Entrevista",
+                LinkCheckout: "#"
+            }
+        ];
+
+        let products = [...demoProducts]; // Começa com Demo
+        let dataLoaded = false;
+
+        function router(pageName, productId = null) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active', 'hidden'));
+            document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(pageName + '-page');
+            target.classList.remove('hidden');
+            target.classList.add('active');
+            window.scrollTo(0, 0);
+
+            if(pageName === 'store') {
+                if(!dataLoaded && SHEET_URL.includes('docs.google.com')) {
+                    fetchProducts(); 
+                } else {
+                    renderStore(); // Usa Demo se não tiver URL válida
+                }
+            }
+            
+            // CORREÇÃO: Verifica se productId não é nulo (aceita 0)
+            if(pageName === 'product-detail' && productId !== null) {
+                renderProductDetail(productId);
+            }
+        }
+
+        function fetchProducts() {
+            const loader = document.getElementById('loading-indicator');
+            loader.classList.remove('hidden');
+
+            Papa.parse(SHEET_URL, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    // Se achar dados na planilha, substitui os de Demo
+                    const validData = results.data.filter(item => item.Nome && item.Nome.trim() !== "");
+                    if(validData.length > 0) {
+                        products = validData;
+                    }
+                    dataLoaded = true;
+                    loader.classList.add('hidden');
+                    renderStore();
+                },
+                error: function(err) {
+                    console.log("Usando dados de demonstração devido a erro na planilha.");
+                    loader.classList.add('hidden');
+                    renderStore();
+                }
+            });
+        }
+
+        const iconMap = {
+            'planilha': { icon: 'fa-file-excel', color: 'text-green-600' },
+            'video': { icon: 'fa-video', color: 'text-red-600' },
+            'curso': { icon: 'fa-graduation-cap', color: 'text-blue-600' },
+            'doc': { icon: 'fa-file-lines', color: 'text-gray-600' },
+            'default': { icon: 'fa-box-open', color: 'text-gold-500' }
+        };
+
+        function renderStore() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            products.forEach((product, index) => {
+                const typeKey = product.Tipo ? product.Tipo.toLowerCase().trim() : 'default';
+                const style = iconMap[typeKey] || iconMap['default'];
+
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col";
+                card.innerHTML = `
+                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-xl ${style.color}">
+                        <i class="fa-solid ${style.icon}"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-dark-900 mb-2">${product.Nome}</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">${product.DescricaoCurta}</p>
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                        <span class="font-bold text-lg text-dark-900">${product.Preco}</span>
+                        <button onclick="router('product-detail', ${index})" class="text-gold-600 font-bold text-sm uppercase hover:text-gold-500 transition-colors">
+                            Ver Detalhes <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderProductDetail(index) {
+            const product = products[index];
+            if(!product) return;
+        
+            // Campos Básicos
+            document.getElementById('detail-title').innerText = product.Nome;
+            document.getElementById('detail-price').innerText = product.Preco;
+            document.getElementById('detail-description').innerText = product.DescricaoLonga;
+            document.getElementById('detail-button').href = product.LinkCheckout || '#';
+        
+            // Imagem do Produto (Se tiver uma coluna 'Imagem' na planilha, use-a. Senão, use o placeholder)
+            const imgEl = document.getElementById('detail-image');
+            imgEl.src = product.Imagem || '/assets/MK_Planilha.png';
+        
+            // Renderização da Grade de Benefícios (Transforma o Beneficios em cards)
+            const grid = document.getElementById('detail-features-grid');
+            grid.innerHTML = '';
+            
+            if(product.Beneficios) {
+                const features = product.Beneficios.split('|');
+                features.forEach(feat => {
+                    if(feat.trim()) {
+                        grid.innerHTML += `
+                            <div class="flex gap-4 p-6 bg-white border border-gray-100 rounded-lg shadow-sm">
+                                <div class="text-green-500 mt-1"><i class="fa-solid fa-circle-check text-xl"></i></div>
+                                <div>
+                                    <p class="font-bold text-dark-900">${feat.trim()}</p>
+                                    <p class="text-sm text-gray-500">Pronto para uso imediato.</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
